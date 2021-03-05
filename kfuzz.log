@@ -1,0 +1,80 @@
+started
+[Thread 0x7ffff63c4700 (LWP 29562) exited]
+lkl_cpu: lib/posix-host.c:302: void panic(void): Assertion `0' failed.
+
+Thread 39 "lkl_cpu" received signal SIGABRT, Aborted.
+[Switching to Thread 0x7fffdeffd700 (LWP 29597)]
+__GI_raise (sig=sig@entry=6) at ../sysdeps/unix/sysv/linux/raise.c:51
+51	../sysdeps/unix/sysv/linux/raise.c: No such file or directory.
+(gdb) info threads
+  Id   Target Id         Frame 
+  1    Thread 0x7ffff7fd3b80 (LWP 29559) "lkl_cpu" 0x00007ffff6bd67c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8001d50)
+    at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+  2    Thread 0x7ffff6bc5700 (LWP 29560) "lkl_cpu" 0x00007ffff6bd67c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7ffff0000b20)
+    at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+  3    Thread 0x7ffff7ff6740 (LWP 29561) "lkl_cpu" 0x00007ffff6dea33a in timer_helper_thread (arg=<optimized out>) at ../sysdeps/unix/sysv/linux/timer_routines.c:89
+  5    Thread 0x7ffff5bc3700 (LWP 29563) "lkl_cpu" 0x00007ffff6bd67c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7ffff0000e20)
+    at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+  6    Thread 0x7ffff53c2700 (LWP 29564) "lkl_cpu" 0x00007ffff6bd67c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8000b20)
+    at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+  7    Thread 0x7ffff4bc1700 (LWP 29565) "lkl_cpu" 0x00007ffff6bd67c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8000c70)
+    at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+  8    Thread 0x7fffecdfe700 (LWP 29566) "lkl_cpu" 0x00007ffff6bd67c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8000dc0)
+    at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+  9    Thread 0x7fffe7fff700 (LWP 29567) "lkl_cpu" 0x00007ffff6bd67c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8000f10)
+    at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+  10   Thread 0x7fffe77fe700 (LWP 29568) "lkl_cpu" 0x00007ffff6bd67c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8001060)
+    at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+  11   Thread 0x7fffe6ffd700 (LWP 29569) "lkl_cpu" 0x00007ffff6bd67c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe80011b0)
+    at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+  12   Thread 0x7fffe67fc700 (LWP 29570) "lkl_cpu" 0x00007ffff6bd67c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8001300)
+    at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+  13   Thread 0x7fffe5ffb700 (LWP 29571) "lkl_cpu" 0x00007ffff6bd67c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8001450)
+    at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+  14   Thread 0x7fffe57fa700 (LWP 29572) "lkl_cpu" 0x00007ffff6bd67c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe80015a0)
+    at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+  15   Thread 0x7fffe4ff9700 (LWP 29573) "lkl_cpu" 0x00007ffff6bd67c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe80016f0)
+    at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+  16   Thread 0x7fffdffff700 (LWP 29574) "lkl_cpu" 0x00007ffff6bd67c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8001840)
+    at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+  17   Thread 0x7fffdf7fe700 (LWP 29575) "lkl_cpu" 0x00007ffff6bd67c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8001990)
+    at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+  38   Thread 0x7fffde7fc700 (LWP 29596) "lkl_cpu" 0x00007ffff6bd67c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8001d50)
+    at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+* 39   Thread 0x7fffdeffd700 (LWP 29597) "lkl_cpu" __GI_raise (sig=sig@entry=6) at ../sysdeps/unix/sysv/linux/raise.c:51
+(gdb) t 1
+(gdb) backtrace 
+#0  0x00007ffff6bd67c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8001d50) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+#1  do_futex_wait (sem=sem@entry=0x7fffe8001d50, abstime=0x0) at sem_waitcommon.c:111
+#2  0x00007ffff6bd68b8 in __new_sem_wait_slow (sem=0x7fffe8001d50, abstime=0x0) at sem_waitcommon.c:181
+#3  0x00007ffff744a0f8 in sem_down (sem=0x7fffe8001d50) at lib/posix-host.c:127
+#4  0x00007ffff744f356 in __switch_to (prev=0x7fffe8001d50, next=0x189) at arch/lkl/kernel/threads.c:112
+#5  0x00007ffff78a6c07 in context_switch (rf=<optimized out>, next=<optimized out>, prev=0xfffffffffffffe00, rq=<optimized out>) at kernel/sched/core.c:2790
+#6  __schedule (preempt=80) at kernel/sched/core.c:3366
+#7  0x00007ffff78a70f2 in preempt_schedule_common () at kernel/sched/core.c:3505
+#8  _cond_resched () at kernel/sched/core.c:4842
+#9  0x00007ffff74ab6f1 in shrink_slab (gfp_mask=3892321616, nid=393, nr_scanned=140737209601536, nr_eligible=140737332996038, memcg=<optimized out>) at mm/vmscan.c:506
+#10 0x00000000000003e8 in ?? ()
+#11 0x0000003000000008 in ?? ()
+#12 0x00007fffffffdb60 in ?? ()
+#13 0x0000000000000000 in ?? ()
+
+(gdb) t 39
+[Switching to thread 39 (Thread 0x7fffdeffd700 (LWP 29597))]
+#0  __GI_raise (sig=sig@entry=6) at ../sysdeps/unix/sysv/linux/raise.c:51
+51	../sysdeps/unix/sysv/linux/raise.c: No such file or directory.
+(gdb) backtrace 
+#0  __GI_raise (sig=sig@entry=6) at ../sysdeps/unix/sysv/linux/raise.c:51
+#1  0x00007ffff702d921 in __GI_abort () at abort.c:79
+#2  0x00007ffff701d48a in __assert_fail_base (fmt=0x7ffff71a4750 "%s%s%s:%u: %s%sAssertion `%s' failed.\n%n", assertion=assertion@entry=0x7ffff78bdaf2 "0", 
+    file=file@entry=0x7ffff78bdaf4 "lib/posix-host.c", line=line@entry=302, function=function@entry=0x7ffff78bdb05 "void panic(void)") at assert.c:92
+#3  0x00007ffff701d502 in __GI___assert_fail (assertion=0x7ffff78bdaf2 "0", file=0x7ffff78bdaf4 "lib/posix-host.c", line=302, function=0x7ffff78bdb05 "void panic(void)") at assert.c:101
+#4  0x00007ffff744a000 in panic () at lib/posix-host.c:302
+#5  0x00007ffff744a9d9 in lkl_bug (fmt=0x7ffff7977f59 "%s: unbalanced put\n") at lib/utils.c:207
+#6  0x00007ffff7450702 in lkl_cpu_put () at arch/lkl/kernel/cpu.c:119
+#7  0x00007ffff744fec9 in idle_host_task_loop (unused=0x2) at arch/lkl/kernel/syscalls.c:151
+#8  0x00007fffef66e200 in ?? ()
+#9  0x00007ffff744fe40 in ?? () at arch/lkl/kernel/syscalls.c:95 from /usr/lib/liblkl.so
+#10 0x0000000000000000 in ?? ()
+(gdb) print cpu
+$1 = {lock = 0x5555557574c0, shutdown_gate = 0, irqs_pending = false, sleepers = 0, count = 0, owner = 0, sem = 0x5555557574f0, shutdown_sem = 0x555555757520}

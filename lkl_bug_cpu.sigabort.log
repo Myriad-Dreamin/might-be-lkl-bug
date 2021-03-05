@@ -1,0 +1,835 @@
+restart 72 time(s)
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+[New Thread 0x7ffff6169700 (LWP 21427)]
+[New Thread 0x7ffff7ff4740 (LWP 21428)]
+[New Thread 0x7ffff5968700 (LWP 21429)]
+[New Thread 0x7ffff5167700 (LWP 21430)]
+[New Thread 0x7ffff4966700 (LWP 21431)]
+[New Thread 0x7fffecdff700 (LWP 21432)]
+[New Thread 0x7fffe7fff700 (LWP 21433)]
+[New Thread 0x7fffe77fe700 (LWP 21434)]
+[New Thread 0x7fffe6ffd700 (LWP 21435)]
+[New Thread 0x7fffe67fc700 (LWP 21436)]
+[New Thread 0x7fffe5ffb700 (LWP 21437)]
+[New Thread 0x7fffe57fa700 (LWP 21438)]
+[New Thread 0x7fffe4ff9700 (LWP 21439)]
+[New Thread 0x7fffdffff700 (LWP 21440)]
+[New Thread 0x7fffdf7fe700 (LWP 21441)]
+[New Thread 0x7fffdeffd700 (LWP 21442)]
+[Thread 0x7fffdeffd700 (LWP 21442) exited]
+[New Thread 0x7fffdeffd700 (LWP 21443)]
+[New Thread 0x7fffde7fc700 (LWP 21444)]
+[New Thread 0x7fffddffb700 (LWP 21445)]
+[New Thread 0x7fffdd7fa700 (LWP 21446)]
+[New Thread 0x7fffdcff9700 (LWP 21447)]
+started
+lkl_cpu: lib/posix-host.c:303: panic: Assertion `0' failed.
+
+Thread 22 "lkl_cpu" received signal SIGABRT, Aborted.
+[Switching to Thread 0x7fffdcff9700 (LWP 21447)]
+[exited] SIG SIGABRT
+__GI_raise (sig=sig@entry=6) at ../sysdeps/unix/sysv/linux/raise.c:51
+51	../sysdeps/unix/sysv/linux/raise.c: No such file or directory.
+bug reproduced...
+(gdb) backtrace 
+#0  __GI_raise (sig=sig@entry=6) at ../sysdeps/unix/sysv/linux/raise.c:51
+#1  0x00007ffff65d1921 in __GI_abort () at abort.c:79
+#2  0x00007ffff65c148a in __assert_fail_base (fmt=0x7ffff6748750 "%s%s%s:%u: %s%sAssertion `%s' failed.\n%n", assertion=assertion@entry=0x7ffff78b5720 "0", file=file@entry=0x7ffff78b570f "lib/posix-host.c", line=line@entry=303, function=function@entry=0x7ffff78b5111 <__PRETTY_FUNCTION__.10941> "panic") at assert.c:92
+#3  0x00007ffff65c1502 in __GI___assert_fail (assertion=assertion@entry=0x7ffff78b5720 "0", file=file@entry=0x7ffff78b570f "lib/posix-host.c", line=line@entry=303, function=function@entry=0x7ffff78b5111 <__PRETTY_FUNCTION__.10941> "panic") at assert.c:101
+#4  0x00007ffff73deac3 in panic () at lib/posix-host.c:303
+#5  0x00007ffff73df263 in lkl_bug (fmt=<optimized out>) at lib/utils.c:207
+#6  0x00007ffff73e6564 in lkl_cpu_put () at arch/lkl/kernel/cpu.c:119
+#7  0x00007ffff73e5d61 in idle_host_task_loop (unused=0x2) at arch/lkl/kernel/syscalls.c:151
+#8  0x00007fffef5b1000 in ?? ()
+#9  0x00007fffdcff8ef0 in ?? ()
+#10 0x00007ffff73e51ab in thread_bootstrap (_tba=0x7ffff7d96700 <cpu>) at arch/lkl/kernel/threads.c:160
+#11 0x0000000000000000 in ?? ()
+
+┌──Register group: general─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│rax            0x0      0                                          rbx            0x0      0                                          rcx            0x7ffff65cffb7   140737326677943                     │
+│rdx            0x0      0                                          rsi            0x7fffdcff8ac0   140736901122752                    rdi            0x2      2                                           │
+│rbp            0x7ffff6748750   0x7ffff6748750                     rsp            0x7fffdcff8ac0   0x7fffdcff8ac0                     r8             0x0      0                                           │
+│r9             0x7fffdcff8ac0   140736901122752                    r10            0x8      8                                          r11            0x246    582                                         │
+│r12            0x7ffff78b570f   140737346492175                    r13            0x7ffff78b5720   140737346492192                    r14            0x12f    303                                         │
+│r15            0x7ffff5967b60   140737313667936                    rip            0x7ffff65cffb7   0x7ffff65cffb7 <__GI_raise+199>    eflags         0x246    [ PF ZF IF ]                                │
+│cs             0x33     51                                         ss             0x2b     43                                         ds             0x0      0                                           │
+│es             0x0      0                                          fs             0x0      0                                          gs             0x0      0                                           │
+│                                                                                                                                                                                                          │
+│                                                                                                                                                                                                          │
+│                                                                                                                                                                                                          │
+│                                                                                                                                                                                                          │
+│                                                                                                                                                                                                          │
+│                                                                                                                                                                                                          │
+│                                                                                                                                                                                                          │
+│                                                                                                                                                                                                          │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+  >│0x7ffff65cffb7 <__GI_raise+199> mov    0x108(%rsp),%rcx                                                                                                                                                │
+   │0x7ffff65cffbf <__GI_raise+207> xor    %fs:0x28,%rcx                                                                                                                                                   │
+   │0x7ffff65cffc8 <__GI_raise+216> mov    %r8d,%eax                                                                                                                                                       │
+   │0x7ffff65cffcb <__GI_raise+219> jne    0x7ffff65cffec <__GI_raise+252>                                                                                                                                 │
+   │0x7ffff65cffcd <__GI_raise+221> add    $0x118,%rsp                                                                                                                                                     │
+   │0x7ffff65cffd4 <__GI_raise+228> retq                                                                                                                                                                   │
+   │0x7ffff65cffd5 <__GI_raise+229> nopl   (%rax)                                                                                                                                                          │
+   │0x7ffff65cffd8 <__GI_raise+232> mov    0x3abe89(%rip),%rdx        # 0x7ffff697be68                                                                                                                     │
+   │0x7ffff65cffdf <__GI_raise+239> neg    %eax                                                                                                                                                            │
+   │0x7ffff65cffe1 <__GI_raise+241> mov    $0xffffffff,%r8d                                                                                                                                                │
+   │0x7ffff65cffe7 <__GI_raise+247> mov    %eax,%fs:(%rdx)                                                                                                                                                 │
+   │0x7ffff65cffea <__GI_raise+250> jmp    0x7ffff65cffa0 <__GI_raise+176>                                                                                                                                 │
+   │0x7ffff65cffec <__GI_raise+252> callq  0x7ffff66c5b10 <__stack_chk_fail>                                                                                                                               │
+   │0x7ffff65cfff1                  nopw   %cs:0x0(%rax,%rax,1)                                                                                                                                            │
+   │0x7ffff65cfffb                  nopl   0x0(%rax,%rax,1)                                                                                                                                                │
+   │0x7ffff65d0000 <killpg>         test   %edi,%edi 
+
+(gdb) up...
+
+┌──arch/lkl/kernel/cpu.c────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+   │104                     lkl_ops->sem_down(cpu.sem);                                                                                                                                                    │
+   │105                     ret = __cpu_try_get_lock(0);                                                                                                                                                   │
+   │106             }                                                                                                                                                                                      │
+   │107                                                                                                                                                                                                    │
+   │108             __cpu_try_get_unlock(ret, 1);                                                                                                                                                          │
+   │109                                                                                                                                                                                                    │
+   │110             return ret;                                                                                                                                                                            │
+   │111     }                                                                                                                                                                                              │
+   │112                                                                                                                                                                                                    │
+   │113     void lkl_cpu_put(void)                                                                                                                                                                         │
+   │114     {                                                                                                                                                                                              │
+   │115             lkl_ops->mutex_lock(cpu.lock);                                                                                                                                                         │
+   │116                                                                                                                                                                                                    │
+   │117             if (!cpu.count || !cpu.owner ||                                                                                                                                                        │
+   │118                 !lkl_ops->thread_equal(cpu.owner, lkl_ops->thread_self()))                                                                                                                         │
+  >│119                     lkl_bug("%s: unbalanced put\n", __func__);                                                                                                                                     │
+   │120                                                                                                                                                                                                    │
+   │121             while (cpu.irqs_pending && !irqs_disabled()) {                                                                                                                                         │
+   │122                     cpu.irqs_pending = false;                                                                                                                                                      │
+   │123                     lkl_ops->mutex_unlock(cpu.lock);                                                                                                                                               │
+   │124                     run_irqs();                                                                                                                                                                    │
+   │125                     lkl_ops->mutex_lock(cpu.lock);                                                                                                                                                 │
+   │126             }                                                                                                                                                                                      │
+   │127                                                                                                                                                                                                    │
+   │128             if (test_ti_thread_flag(current_thread_info(), TIF_HOST_THREAD) &&                                                                                                                     │
+   │129                 !single_task_running() && cpu.count == 1) {                                                                                                                                        │
+   │130                     if (in_interrupt())                                                                                                                                                            │
+   │131                             lkl_bug("%s: in interrupt\n", __func__);                                                                                                                               │
+   │132                     lkl_ops->mutex_unlock(cpu.lock);                                                                                                                                               │
+   │133                     thread_sched_jb();                                                                                                                                                             │
+   │134                     return;                                                                                                                                                                        │
+   │135             }                                  
+
+#6  0x00007ffff73e6564 in lkl_cpu_put () at arch/lkl/kernel/cpu.c:119
+(gdb) print cpu
+$1 = {lock = 0x5555557574c0, shutdown_gate = 0, irqs_pending = false, sleepers = 0, count = 0, owner = 0, sem = 0x5555557574f0, shutdown_sem = 0x555555757520}
+
+(gdb) t 1
+(gdb) backtrace
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8001c60) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+#1  do_futex_wait (sem=sem@entry=0x7fffe8001c60, abstime=0x0) at sem_waitcommon.c:111
+#2  0x00007ffff617a8b8 in __new_sem_wait_slow (sem=sem@entry=0x7fffe8001c60, abstime=0x0) at sem_waitcommon.c:181
+#3  0x00007ffff617a929 in __new_sem_wait (sem=sem@entry=0x7fffe8001c60) at sem_wait.c:42
+#4  0x00007ffff73def64 in sem_down (sem=0x7fffe8001c60) at lib/posix-host.c:128
+#5  0x00007ffff73e5321 in __switch_to (prev=0x7fffe8001c60, next=0x189) at arch/lkl/kernel/threads.c:112
+#6  0x00007ffff789cb75 in context_switch (rf=<optimized out>, next=<optimized out>, prev=0xfffffffffffffe00, rq=<optimized out>) at kernel/sched/core.c:3254
+#7  __schedule (preempt=96) at kernel/sched/core.c:3880
+#8  0x00007ffff789cf52 in preempt_schedule_common () at kernel/sched/core.c:4028
+#9  _cond_resched () at kernel/sched/core.c:5426
+#10 0x00007ffff7440b96 in shrink_slab (gfp_mask=3892321376, nid=393, priority=0, memcg=<optimized out>) at mm/vmscan.c:736
+#11 0x00007ffff74412ae in drop_slab_node (nid=-136784792) at mm/vmscan.c:750
+#12 0x00007ffff74412cb in drop_slab () at mm/vmscan.c:760
+#13 0x0000555555554a77 in fuzz_main ()
+#14 0x0000555555554a61 in lkl_main ()
+#15 0x0000555555554bc8 in main ()
+
+(gdb) info threads 
+  Id   Target Id         Frame 
+  1    Thread 0x7ffff7fd4240 (LWP 21425) "lkl_cpu" 0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8001c60) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+  2    Thread 0x7ffff6169700 (LWP 21427) "lkl_cpu" 0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7ffff0000b20) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+  3    Thread 0x7ffff7ff4740 (LWP 21428) "lkl_cpu" 0x00007ffff638e33a in timer_helper_thread (arg=<optimized out>) at ../sysdeps/unix/sysv/linux/timer_routines.c:89
+  4    Thread 0x7ffff5968700 (LWP 21429) "lkl_cpu" (Exiting) dl_open_worker (a=a@entry=0x7ffff5967ab0) at dl-open.c:515
+  5    Thread 0x7ffff5167700 (LWP 21430) "lkl_cpu" 0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7ffff0000e20) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+  6    Thread 0x7ffff4966700 (LWP 21431) "lkl_cpu" 0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8000b20) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+  7    Thread 0x7fffecdff700 (LWP 21432) "lkl_cpu" 0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8000c70) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+  8    Thread 0x7fffe7fff700 (LWP 21433) "lkl_cpu" 0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8000dc0) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+  9    Thread 0x7fffe77fe700 (LWP 21434) "lkl_cpu" 0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8000f10) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+  10   Thread 0x7fffe6ffd700 (LWP 21435) "lkl_cpu" 0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8001060) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+  11   Thread 0x7fffe67fc700 (LWP 21436) "lkl_cpu" 0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe80011b0) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+  12   Thread 0x7fffe5ffb700 (LWP 21437) "lkl_cpu" 0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8001300) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+  13   Thread 0x7fffe57fa700 (LWP 21438) "lkl_cpu" 0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8001450) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+  14   Thread 0x7fffe4ff9700 (LWP 21439) "lkl_cpu" 0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe80015a0) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+  15   Thread 0x7fffdffff700 (LWP 21440) "lkl_cpu" 0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe80016f0) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+  16   Thread 0x7fffdf7fe700 (LWP 21441) "lkl_cpu" 0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8001840) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+  18   Thread 0x7fffdeffd700 (LWP 21443) "lkl_cpu" 0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8001990) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+  19   Thread 0x7fffde7fc700 (LWP 21444) "lkl_cpu" 0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe80019c0) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+  20   Thread 0x7fffddffb700 (LWP 21445) "lkl_cpu" 0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8001b10) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+  21   Thread 0x7fffdd7fa700 (LWP 21446) "lkl_cpu" 0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8001c60) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+* 22   Thread 0x7fffdcff9700 (LWP 21447) "lkl_cpu" __GI_raise (sig=sig@entry=6) at ../sysdeps/unix/sysv/linux/raise.c:51
+(gdb) t 1
+[Switching to thread 1 (Thread 0x7ffff7fd4240 (LWP 21425))]
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8001c60) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+205	../sysdeps/unix/sysv/linux/futex-internal.h: No such file or directory.
+(gdb) backtrace 
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8001c60) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+#1  do_futex_wait (sem=sem@entry=0x7fffe8001c60, abstime=0x0) at sem_waitcommon.c:111
+#2  0x00007ffff617a8b8 in __new_sem_wait_slow (sem=sem@entry=0x7fffe8001c60, abstime=0x0) at sem_waitcommon.c:181
+#3  0x00007ffff617a929 in __new_sem_wait (sem=sem@entry=0x7fffe8001c60) at sem_wait.c:42
+#4  0x00007ffff73def64 in sem_down (sem=0x7fffe8001c60) at lib/posix-host.c:128
+#5  0x00007ffff73e5321 in __switch_to (prev=0x7fffe8001c60, next=0x189) at arch/lkl/kernel/threads.c:112
+#6  0x00007ffff789cb75 in context_switch (rf=<optimized out>, next=<optimized out>, prev=0xfffffffffffffe00, rq=<optimized out>) at kernel/sched/core.c:3254
+#7  __schedule (preempt=96) at kernel/sched/core.c:3880
+#8  0x00007ffff789cf52 in preempt_schedule_common () at kernel/sched/core.c:4028
+#9  _cond_resched () at kernel/sched/core.c:5426
+#10 0x00007ffff7440b96 in shrink_slab (gfp_mask=3892321376, nid=393, priority=0, memcg=<optimized out>) at mm/vmscan.c:736
+#11 0x00007ffff74412ae in drop_slab_node (nid=-136784792) at mm/vmscan.c:750
+#12 0x00007ffff74412cb in drop_slab () at mm/vmscan.c:760
+#13 0x0000555555554a77 in fuzz_main ()
+#14 0x0000555555554a61 in lkl_main ()
+#15 0x0000555555554bc8 in main ()
+(gdb) t 2
+[Switching to thread 2 (Thread 0x7ffff6169700 (LWP 21427))]
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7ffff0000b20) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+205	in ../sysdeps/unix/sysv/linux/futex-internal.h
+(gdb) backtrace 
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7ffff0000b20) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+#1  do_futex_wait (sem=sem@entry=0x7ffff0000b20, abstime=0x0) at sem_waitcommon.c:111
+#2  0x00007ffff617a8b8 in __new_sem_wait_slow (sem=sem@entry=0x7ffff0000b20, abstime=0x0) at sem_waitcommon.c:181
+#3  0x00007ffff617a929 in __new_sem_wait (sem=sem@entry=0x7ffff0000b20) at sem_wait.c:42
+#4  0x00007ffff73def64 in sem_down (sem=0x7ffff0000b20) at lib/posix-host.c:128
+#5  0x00007ffff73e5321 in __switch_to (prev=0x7ffff0000b20, next=0x189) at arch/lkl/kernel/threads.c:112
+#6  0x00007ffff789cb75 in context_switch (rf=<optimized out>, next=<optimized out>, prev=0xfffffffffffffe00, rq=<optimized out>) at kernel/sched/core.c:3254
+#7  __schedule (preempt=32) at kernel/sched/core.c:3880
+#8  0x00007ffff789cdaf in schedule () at kernel/sched/core.c:3947
+#9  0x00007ffff789ce79 in schedule_preempt_disabled () at kernel/sched/core.c:4006
+#10 0x00007ffff789b1f2 in rest_init () at init/main.c:449
+#11 0x00007ffff78a0223 in arch_call_rest_init () at init/main.c:572
+#12 0x00007ffff78a05d8 in start_kernel () at init/main.c:785
+#13 0x00007ffff78a0f08 in lkl_run_kernel (arg=0x7ffff0000b20) at arch/lkl/kernel/setup.c:48
+#14 0x00007ffff61716db in start_thread (arg=0x7ffff6169700) at pthread_create.c:463
+#15 0x00007ffff66b271f in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+(gdb) t 3
+[Switching to thread 3 (Thread 0x7ffff7ff4740 (LWP 21428))]
+#0  0x00007ffff638e33a in timer_helper_thread (arg=<optimized out>) at ../sysdeps/unix/sysv/linux/timer_routines.c:89
+89	../sysdeps/unix/sysv/linux/timer_routines.c: No such file or directory.
+(gdb) backtrace 
+#0  0x00007ffff638e33a in timer_helper_thread (arg=<optimized out>) at ../sysdeps/unix/sysv/linux/timer_routines.c:89
+#1  0x00007ffff61716db in start_thread (arg=0x7ffff7ff4740) at pthread_create.c:463
+#2  0x00007ffff66b271f in clone () at ../sysdeps/unix/sysv/linux/x86_64/clone.S:95
+(gdb) t 4
+[Switching to thread 4 (Thread 0x7ffff5968700 (LWP 21429))]
+#0  dl_open_worker (a=a@entry=0x7ffff5967ab0) at dl-open.c:515
+515	dl-open.c: No such file or directory.
+(gdb) backtrace 
+#0  dl_open_worker (a=a@entry=0x7ffff5967ab0) at dl-open.c:515
+#1  0x00007ffff66f81ef in __GI__dl_catch_exception (exception=0x7ffff5967a90, operate=0x7ffff7de7f60 <dl_open_worker>, args=0x7ffff5967ab0) at dl-error-skeleton.c:196
+#2  0x00007ffff7de796a in _dl_open (file=0x7ffff617eca0 "libgcc_s.so.1", mode=-2147483646, caller_dlopen=0x7ffff617cedb <pthread_cancel_init+43>, nsid=<optimized out>, argc=1, argv=<optimized out>, env=0x7fffffffdc48) at dl-open.c:605
+#3  0x00007ffff66f72bd in do_dlopen (ptr=ptr@entry=0x7ffff5967ce0) at dl-libc.c:96
+#4  0x00007ffff66f81ef in __GI__dl_catch_exception (exception=exception@entry=0x7ffff5967c80, operate=operate@entry=0x7ffff66f7280 <do_dlopen>, args=args@entry=0x7ffff5967ce0) at dl-error-skeleton.c:196
+#5  0x00007ffff66f827f in __GI__dl_catch_error (objname=objname@entry=0x7ffff5967cd0, errstring=errstring@entry=0x7ffff5967cd8, mallocedp=mallocedp@entry=0x7ffff5967ccf, operate=operate@entry=0x7ffff66f7280 <do_dlopen>, args=args@entry=0x7ffff5967ce0) at dl-error-skeleton.c:215
+#6  0x00007ffff66f73e9 in dlerror_run (args=0x7ffff5967ce0, operate=0x7ffff66f7280 <do_dlopen>) at dl-libc.c:46
+#7  __GI___libc_dlopen_mode (name=name@entry=0x7ffff617eca0 "libgcc_s.so.1", mode=mode@entry=-2147483646) at dl-libc.c:195
+#8  0x00007ffff617cedb in pthread_cancel_init () at ../sysdeps/nptl/unwind-forcedunwind.c:52
+#9  0x00007ffff617d0c4 in _Unwind_ForcedUnwind (exc=0x7ffff5968d70, stop=stop@entry=0x7ffff617ae70 <unwind_stop>, stop_argument=0x7ffff5967f10) at ../sysdeps/nptl/unwind-forcedunwind.c:126
+#10 0x00007ffff617b000 in __GI___pthread_unwind (buf=<optimized out>) at unwind.c:121
+#11 0x00007ffff6172ae5 in __do_cancel () at pthreadP.h:301
+#12 __pthread_exit (value=<optimized out>) at pthread_exit.c:28
+#13 0x00007ffff66c1394 in __pthread_exit (retval=retval@entry=0x0) at forward.c:173
+#14 0x00007ffff73de9db in thread_exit () at lib/posix-host.c:203
+#15 0x00007ffff73e5011 in lkl_run_init (bprm=0x7ffff7d8d468 <lkl_ops>) at arch/lkl/kernel/setup.c:172
+#16 0x00007ffff746519f in search_binary_handler (bprm=0x7fffec5fd000) at fs/exec.c:1658
+#17 0x00007ffff5967e10 in ?? ()
+#18 0x00007ffff74018de in __task_pid_nr_ns (task=0x7ffff7d8d468 <lkl_ops>, type=4096, ns=0x3) at kernel/pid.c:434
+#19 0x00007ffff746577a in exec_binprm (bprm=<optimized out>) at fs/exec.c:1701
+#20 __do_execve_file (fd=-137974080, filename=0x7fffef408000, argv=..., envp=..., flags=0, file=0x0) at fs/exec.c:1821
+#21 0x00007ffff746589d in do_execveat_common (flags=<optimized out>, envp=..., argv=..., filename=<optimized out>, fd=<optimized out>) at fs/exec.c:1868
+#22 do_execve (filename=0x7fffec5fd000, __argv=0x1000, __envp=0x3) at fs/exec.c:1885
+#23 0x00007ffff73e49e2 in run_init_process (init_filename=0x7ffff7d8d468 <lkl_ops> " `uUUU") at init/main.c:1048
+#24 0x00007fffece04280 in ?? ()
+#25 0x00007ffff5967ec0 in ?? ()
+#26 0x00007ffff789b24f in kernel_init (unused=0x7fffec5fd000) at init/main.c:1129
+Backtrace stopped: frame did not save the PC
+(gdb) t 5
+[Switching to thread 5 (Thread 0x7ffff5167700 (LWP 21430))]
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7ffff0000e20) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+205	../sysdeps/unix/sysv/linux/futex-internal.h: No such file or directory.
+(gdb) backtrace 
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7ffff0000e20) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+#1  do_futex_wait (sem=sem@entry=0x7ffff0000e20, abstime=0x0) at sem_waitcommon.c:111
+#2  0x00007ffff617a8b8 in __new_sem_wait_slow (sem=sem@entry=0x7ffff0000e20, abstime=0x0) at sem_waitcommon.c:181
+#3  0x00007ffff617a929 in __new_sem_wait (sem=sem@entry=0x7ffff0000e20) at sem_wait.c:42
+#4  0x00007ffff73def64 in sem_down (sem=0x7ffff0000e20) at lib/posix-host.c:128
+#5  0x00007ffff73e5321 in __switch_to (prev=0x7ffff0000e20, next=0x189) at arch/lkl/kernel/threads.c:112
+#6  0x00007ffff789cb75 in context_switch (rf=<optimized out>, next=<optimized out>, prev=0xfffffffffffffe00, rq=<optimized out>) at kernel/sched/core.c:3254
+#7  __schedule (preempt=32) at kernel/sched/core.c:3880
+#8  0x00007ffff789cdaf in schedule () at kernel/sched/core.c:3947
+#9  0x00007ffff7403a25 in kthreadd (unused=0x7ffff0000e20) at kernel/kthread.c:584
+#10 0x00007ffff73e5926 in arch_local_irq_restore (flags=140737219923488) at arch/lkl/kernel/irq.c:174
+#11 0x00007fffece30800 in ?? ()
+#12 0x0000000000000001 in ?? ()
+#13 0x00007ffff5166ea0 in ?? ()
+#14 0x00007fffece042e0 in ?? ()
+#15 0x00007fffece30800 in ?? ()
+#16 0x00007ffff74038e0 in ?? () at kernel/kthread.c:75 from ./linux/tools/lkl/lib/liblkl.so
+#17 0x0000000000000000 in ?? ()
+(gdb) t 6
+[Switching to thread 6 (Thread 0x7ffff4966700 (LWP 21431))]
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8000b20) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+205	in ../sysdeps/unix/sysv/linux/futex-internal.h
+(gdb) backtrace 
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8000b20) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+#1  do_futex_wait (sem=sem@entry=0x7fffe8000b20, abstime=0x0) at sem_waitcommon.c:111
+#2  0x00007ffff617a8b8 in __new_sem_wait_slow (sem=sem@entry=0x7fffe8000b20, abstime=0x0) at sem_waitcommon.c:181
+#3  0x00007ffff617a929 in __new_sem_wait (sem=sem@entry=0x7fffe8000b20) at sem_wait.c:42
+#4  0x00007ffff73def64 in sem_down (sem=0x7fffe8000b20) at lib/posix-host.c:128
+#5  0x00007ffff73e5321 in __switch_to (prev=0x7fffe8000b20, next=0x189) at arch/lkl/kernel/threads.c:112
+#6  0x00007ffff789cb75 in context_switch (rf=<optimized out>, next=<optimized out>, prev=0xfffffffffffffe00, rq=<optimized out>) at kernel/sched/core.c:3254
+#7  __schedule (preempt=32) at kernel/sched/core.c:3880
+#8  0x00007ffff789cdaf in schedule () at kernel/sched/core.c:3947
+#9  0x00007ffff73fe34e in worker_thread (__worker=0x0) at kernel/workqueue.c:2436
+#10 0x00007ffff7402f97 in kthread (_create=0x7fffece1f480) at kernel/kthread.c:255
+#11 0x00007fffece0e150 in ?? ()
+#12 0x00007ffff4965ea0 in ?? ()
+#13 0x00007fffece04280 in ?? ()
+#14 0x00007fffece31000 in ?? ()
+#15 0x00007ffff7402e40 in ?? () at kernel/kthread.c:332 from ./linux/tools/lkl/lib/liblkl.so
+#16 0x00007fffece070c0 in ?? ()
+#17 0x00007ffff5166c30 in ?? ()
+#18 0x00007ffff4965ef0 in ?? ()
+#19 0x00007ffff73e51ab in thread_bootstrap (_tba=0x7ffff7d8d468 <lkl_ops>) at arch/lkl/kernel/threads.c:160
+#20 0x0000000000000000 in ?? ()
+(gdb) t 7
+[Switching to thread 7 (Thread 0x7fffecdff700 (LWP 21432))]
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8000c70) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+205	in ../sysdeps/unix/sysv/linux/futex-internal.h
+(gdb) backtrace 
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8000c70) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+#1  do_futex_wait (sem=sem@entry=0x7fffe8000c70, abstime=0x0) at sem_waitcommon.c:111
+#2  0x00007ffff617a8b8 in __new_sem_wait_slow (sem=sem@entry=0x7fffe8000c70, abstime=0x0) at sem_waitcommon.c:181
+#3  0x00007ffff617a929 in __new_sem_wait (sem=sem@entry=0x7fffe8000c70) at sem_wait.c:42
+#4  0x00007ffff73def64 in sem_down (sem=0x7fffe8000c70) at lib/posix-host.c:128
+#5  0x00007ffff73e5321 in __switch_to (prev=0x7fffe8000c70, next=0x189) at arch/lkl/kernel/threads.c:112
+#6  0x00007ffff789cb75 in context_switch (rf=<optimized out>, next=<optimized out>, prev=0xfffffffffffffe00, rq=<optimized out>) at kernel/sched/core.c:3254
+#7  __schedule (preempt=112) at kernel/sched/core.c:3880
+#8  0x00007ffff789cdaf in schedule () at kernel/sched/core.c:3947
+#9  0x00007ffff73fe34e in worker_thread (__worker=0x0) at kernel/workqueue.c:2436
+#10 0x00007ffff7402f97 in kthread (_create=0x7fffece1d500) at kernel/kthread.c:255
+#11 0x00007fffece0e1b0 in ?? ()
+#12 0x00007fffecdfeea0 in ?? ()
+#13 0x00007fffece04280 in ?? ()
+#14 0x00007fffece31800 in ?? ()
+#15 0x00007ffff7402e40 in ?? () at kernel/kthread.c:332 from ./linux/tools/lkl/lib/liblkl.so
+#16 0x00007fffece070c0 in ?? ()
+#17 0x00007ffff5166c30 in ?? ()
+#18 0x00007fffecdfeef0 in ?? ()
+#19 0x00007ffff73e51ab in thread_bootstrap (_tba=0x7ffff7d8d468 <lkl_ops>) at arch/lkl/kernel/threads.c:160
+#20 0x0000000000000000 in ?? ()
+(gdb) t 8
+[Switching to thread 8 (Thread 0x7fffe7fff700 (LWP 21433))]
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8000dc0) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+205	in ../sysdeps/unix/sysv/linux/futex-internal.h
+(gdb) backtrace 
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8000dc0) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+#1  do_futex_wait (sem=sem@entry=0x7fffe8000dc0, abstime=0x0) at sem_waitcommon.c:111
+#2  0x00007ffff617a8b8 in __new_sem_wait_slow (sem=sem@entry=0x7fffe8000dc0, abstime=0x0) at sem_waitcommon.c:181
+#3  0x00007ffff617a929 in __new_sem_wait (sem=sem@entry=0x7fffe8000dc0) at sem_wait.c:42
+#4  0x00007ffff73def64 in sem_down (sem=0x7fffe8000dc0) at lib/posix-host.c:128
+#5  0x00007ffff73e5321 in __switch_to (prev=0x7fffe8000dc0, next=0x189) at arch/lkl/kernel/threads.c:112
+#6  0x00007ffff789cb75 in context_switch (rf=<optimized out>, next=<optimized out>, prev=0xfffffffffffffe00, rq=<optimized out>) at kernel/sched/core.c:3254
+#7  __schedule (preempt=192) at kernel/sched/core.c:3880
+#8  0x00007ffff789cdaf in schedule () at kernel/sched/core.c:3947
+#9  0x00007ffff73fe34e in worker_thread (__worker=0x0) at kernel/workqueue.c:2436
+#10 0x00007ffff7402f97 in kthread (_create=0x7fffece1c540) at kernel/kthread.c:255
+#11 0x00007fffece0e210 in ?? ()
+#12 0x00007fffe7ffeea0 in ?? ()
+#13 0x00007fffece04280 in ?? ()
+#14 0x00007fffece32000 in ?? ()
+#15 0x00007ffff7402e40 in ?? () at kernel/kthread.c:332 from ./linux/tools/lkl/lib/liblkl.so
+#16 0x00007fffece070c0 in ?? ()
+#17 0x00007ffff5166c30 in ?? ()
+#18 0x00007fffe7ffeef0 in ?? ()
+#19 0x00007ffff73e51ab in thread_bootstrap (_tba=0x7ffff7d8d468 <lkl_ops>) at arch/lkl/kernel/threads.c:160
+#20 0x0000000000000000 in ?? ()
+(gdb) t 9
+[Switching to thread 9 (Thread 0x7fffe77fe700 (LWP 21434))]
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8000f10) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+205	in ../sysdeps/unix/sysv/linux/futex-internal.h
+(gdb) backtrace 
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8000f10) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+#1  do_futex_wait (sem=sem@entry=0x7fffe8000f10, abstime=0x0) at sem_waitcommon.c:111
+#2  0x00007ffff617a8b8 in __new_sem_wait_slow (sem=sem@entry=0x7fffe8000f10, abstime=0x0) at sem_waitcommon.c:181
+#3  0x00007ffff617a929 in __new_sem_wait (sem=sem@entry=0x7fffe8000f10) at sem_wait.c:42
+#4  0x00007ffff73def64 in sem_down (sem=0x7fffe8000f10) at lib/posix-host.c:128
+#5  0x00007ffff73e5321 in __switch_to (prev=0x7fffe8000f10, next=0x189) at arch/lkl/kernel/threads.c:112
+#6  0x00007ffff789cb75 in context_switch (rf=<optimized out>, next=<optimized out>, prev=0xfffffffffffffe00, rq=<optimized out>) at kernel/sched/core.c:3254
+#7  __schedule (preempt=16) at kernel/sched/core.c:3880
+#8  0x00007ffff789cdaf in schedule () at kernel/sched/core.c:3947
+#9  0x00007ffff73fef76 in rescuer_thread (__rescuer=0x7fffece32800) at kernel/workqueue.c:2572
+#10 0x0000000300000000 in ?? ()
+#11 0x00007fffece05c70 in ?? ()
+#12 0x00007fff00000000 in ?? ()
+#13 0x00007fffece05c00 in ?? ()
+#14 0x00007ffff73e5926 in arch_local_irq_restore (flags=140737085706000) at arch/lkl/kernel/irq.c:174
+#15 0x00007ffff7c76360 in abs_prev () from ./linux/tools/lkl/lib/liblkl.so
+#16 0x0000000000000001 in ?? ()
+#17 0x00007fffe77fde70 in ?? ()
+#18 0x00007fffece0e240 in ?? ()
+#19 0x00007ffff7c76360 in abs_prev () from ./linux/tools/lkl/lib/liblkl.so
+#20 0x00007ffff5967be0 in ?? ()
+#21 0x00007fffece103c0 in ?? ()
+#22 0x00007fffece070c0 in ?? ()
+#23 0x00007fffe77fdec0 in ?? ()
+#24 0x00007ffff7402f97 in kthread (_create=0x7fffece1df80) at kernel/kthread.c:255
+#25 0x00007fffece0e270 in ?? ()
+#26 0x00007fffe77fdea0 in ?? ()
+#27 0x00007fffece04280 in ?? ()
+#28 0x00007fffece32800 in ?? ()
+#29 0x00007ffff7402e40 in ?? () at kernel/kthread.c:332 from ./linux/tools/lkl/lib/liblkl.so
+#30 0x00007fffece070c0 in ?? ()
+#31 0x00007ffff5166c30 in ?? ()
+#32 0x00007fffe77fdef0 in ?? ()
+#33 0x00007ffff73e51ab in thread_bootstrap (_tba=0x7ffff7d8d468 <lkl_ops>) at arch/lkl/kernel/threads.c:160
+#34 0x0000000000000000 in ?? ()
+(gdb) t 10
+[Switching to thread 10 (Thread 0x7fffe6ffd700 (LWP 21435))]
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8001060) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+205	in ../sysdeps/unix/sysv/linux/futex-internal.h
+(gdb) backtrace 
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8001060) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+#1  do_futex_wait (sem=sem@entry=0x7fffe8001060, abstime=0x0) at sem_waitcommon.c:111
+#2  0x00007ffff617a8b8 in __new_sem_wait_slow (sem=sem@entry=0x7fffe8001060, abstime=0x0) at sem_waitcommon.c:181
+#3  0x00007ffff617a929 in __new_sem_wait (sem=sem@entry=0x7fffe8001060) at sem_wait.c:42
+#4  0x00007ffff73def64 in sem_down (sem=0x7fffe8001060) at lib/posix-host.c:128
+#5  0x00007ffff73e5321 in __switch_to (prev=0x7fffe8001060, next=0x189) at arch/lkl/kernel/threads.c:112
+#6  0x00007ffff789cb75 in context_switch (rf=<optimized out>, next=<optimized out>, prev=0xfffffffffffffe00, rq=<optimized out>) at kernel/sched/core.c:3254
+#7  __schedule (preempt=96) at kernel/sched/core.c:3880
+#8  0x00007ffff789cdaf in schedule () at kernel/sched/core.c:3947
+#9  0x00007ffff7406cc5 in smpboot_thread_fn (data=0x7ffff7d8d468 <lkl_ops>) at kernel/smpboot.c:161
+#10 0x00007ffff7402f97 in kthread (_create=0x7fffef4b0fc0) at kernel/kthread.c:255
+#11 0x00007fffece0e2d0 in ?? ()
+#12 0x00007fffe6ffcea0 in ?? ()
+#13 0x00007fffece04280 in ?? ()
+#14 0x00007fffece33000 in ?? ()
+#15 0x00007ffff7402e40 in ?? () at kernel/kthread.c:332 from ./linux/tools/lkl/lib/liblkl.so
+#16 0x00007fffece070c0 in ?? ()
+#17 0x00007ffff5166c30 in ?? ()
+#18 0x00007fffe6ffcef0 in ?? ()
+#19 0x00007ffff73e51ab in thread_bootstrap (_tba=0x7ffff7d8d468 <lkl_ops>) at arch/lkl/kernel/threads.c:160
+#20 0x0000000000000000 in ?? ()
+(gdb) t 11
+[Switching to thread 11 (Thread 0x7fffe67fc700 (LWP 21436))]
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe80011b0) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+205	in ../sysdeps/unix/sysv/linux/futex-internal.h
+(gdb) backtrace 
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe80011b0) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+#1  do_futex_wait (sem=sem@entry=0x7fffe80011b0, abstime=0x0) at sem_waitcommon.c:111
+#2  0x00007ffff617a8b8 in __new_sem_wait_slow (sem=sem@entry=0x7fffe80011b0, abstime=0x0) at sem_waitcommon.c:181
+#3  0x00007ffff617a929 in __new_sem_wait (sem=sem@entry=0x7fffe80011b0) at sem_wait.c:42
+#4  0x00007ffff73def64 in sem_down (sem=0x7fffe80011b0) at lib/posix-host.c:128
+#5  0x00007ffff73e5321 in __switch_to (prev=0x7fffe80011b0, next=0x189) at arch/lkl/kernel/threads.c:112
+#6  0x00007ffff789cb75 in context_switch (rf=<optimized out>, next=<optimized out>, prev=0xfffffffffffffe00, rq=<optimized out>) at kernel/sched/core.c:3254
+#7  __schedule (preempt=176) at kernel/sched/core.c:3880
+#8  0x00007ffff789cdaf in schedule () at kernel/sched/core.c:3947
+#9  0x00007ffff73fef76 in rescuer_thread (__rescuer=0x7fffecfd8000) at kernel/workqueue.c:2572
+#10 0x0000000300000000 in ?? ()
+#11 0x00007fffecfd4670 in ?? ()
+#12 0x00007fff00000000 in ?? ()
+#13 0x00007fffecfd4600 in ?? ()
+#14 0x00007ffff73e5926 in arch_local_irq_restore (flags=140737085706672) at arch/lkl/kernel/irq.c:174
+#15 0x00007ffff7c76360 in abs_prev () from ./linux/tools/lkl/lib/liblkl.so
+#16 0x0000000000000001 in ?? ()
+#17 0x00007fffe67fbe70 in ?? ()
+#18 0x00007fffecfd3240 in ?? ()
+#19 0x00007ffff7c76360 in abs_prev () from ./linux/tools/lkl/lib/liblkl.so
+#20 0x00007ffff5967b50 in ?? ()
+#21 0x00007fffece10840 in ?? ()
+#22 0x00007fffece07880 in ?? ()
+#23 0x00007fffe67fbec0 in ?? ()
+#24 0x00007ffff7402f97 in kthread (_create=0x7fffece1ea00) at kernel/kthread.c:255
+#25 0x00007fffecfd3270 in ?? ()
+#26 0x00007fffe67fbea0 in ?? ()
+#27 0x00007fffece044c0 in ?? ()
+#28 0x00007fffecfd8000 in ?? ()
+#29 0x00007ffff7402e40 in ?? () at kernel/kthread.c:332 from ./linux/tools/lkl/lib/liblkl.so
+#30 0x00007fffece07880 in ?? ()
+#31 0x00007ffff5166c30 in ?? ()
+#32 0x00007fffe67fbef0 in ?? ()
+#33 0x00007ffff73e51ab in thread_bootstrap (_tba=0x7ffff7d8d468 <lkl_ops>) at arch/lkl/kernel/threads.c:160
+#34 0x0000000000000000 in ?? ()
+(gdb) t 12
+[Switching to thread 12 (Thread 0x7fffe5ffb700 (LWP 21437))]
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8001300) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+205	in ../sysdeps/unix/sysv/linux/futex-internal.h
+(gdb) backtrace 
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8001300) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+#1  do_futex_wait (sem=sem@entry=0x7fffe8001300, abstime=0x0) at sem_waitcommon.c:111
+#2  0x00007ffff617a8b8 in __new_sem_wait_slow (sem=sem@entry=0x7fffe8001300, abstime=0x0) at sem_waitcommon.c:181
+#3  0x00007ffff617a929 in __new_sem_wait (sem=sem@entry=0x7fffe8001300) at sem_wait.c:42
+#4  0x00007ffff73def64 in sem_down (sem=0x7fffe8001300) at lib/posix-host.c:128
+#5  0x00007ffff73e5321 in __switch_to (prev=0x7fffe8001300, next=0x189) at arch/lkl/kernel/threads.c:112
+#6  0x00007ffff789cb75 in context_switch (rf=<optimized out>, next=<optimized out>, prev=0xfffffffffffffe00, rq=<optimized out>) at kernel/sched/core.c:3254
+#7  __schedule (preempt=false) at kernel/sched/core.c:3880
+#8  0x00007ffff789cdaf in schedule () at kernel/sched/core.c:3947
+#9  0x00007ffff73fef76 in rescuer_thread (__rescuer=0x7fffecfd9000) at kernel/workqueue.c:2572
+#10 0x0000000300000000 in ?? ()
+#11 0x00007fffece34970 in ?? ()
+#12 0x00007fff00000000 in ?? ()
+#13 0x00007fffece34900 in ?? ()
+#14 0x00007ffff73e5926 in arch_local_irq_restore (flags=140737085707008) at arch/lkl/kernel/irq.c:174
+#15 0x00007ffff7c76360 in abs_prev () from ./linux/tools/lkl/lib/liblkl.so
+#16 0x0000000000000001 in ?? ()
+#17 0x00007fffe5ffae70 in ?? ()
+#18 0x00007fffecfd32a0 in ?? ()
+#19 0x00007ffff7c76360 in abs_prev () from ./linux/tools/lkl/lib/liblkl.so
+#20 0x00007ffff5967b40 in ?? ()
+#21 0x00007fffece10900 in ?? ()
+#22 0x00007fffece07900 in ?? ()
+#23 0x00007fffe5ffaec0 in ?? ()
+#24 0x00007ffff7402f97 in kthread (_create=0x7fffece1f480) at kernel/kthread.c:255
+#25 0x00007fffecfd32d0 in ?? ()
+#26 0x00007fffe5ffaea0 in ?? ()
+#27 0x00007fffece04500 in ?? ()
+#28 0x00007fffecfd9000 in ?? ()
+#29 0x00007ffff7402e40 in ?? () at kernel/kthread.c:332 from ./linux/tools/lkl/lib/liblkl.so
+#30 0x00007fffece07900 in ?? ()
+#31 0x00007ffff5166c30 in ?? ()
+#32 0x00007fffe5ffaef0 in ?? ()
+#33 0x00007ffff73e51ab in thread_bootstrap (_tba=0x7ffff7d8d468 <lkl_ops>) at arch/lkl/kernel/threads.c:160
+#34 0x0000000000000000 in ?? ()
+(gdb) t 13
+[Switching to thread 13 (Thread 0x7fffe57fa700 (LWP 21438))]
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8001450) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+205	in ../sysdeps/unix/sysv/linux/futex-internal.h
+(gdb) backtrace 
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8001450) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+#1  do_futex_wait (sem=sem@entry=0x7fffe8001450, abstime=0x0) at sem_waitcommon.c:111
+#2  0x00007ffff617a8b8 in __new_sem_wait_slow (sem=sem@entry=0x7fffe8001450, abstime=0x0) at sem_waitcommon.c:181
+#3  0x00007ffff617a929 in __new_sem_wait (sem=sem@entry=0x7fffe8001450) at sem_wait.c:42
+#4  0x00007ffff73def64 in sem_down (sem=0x7fffe8001450) at lib/posix-host.c:128
+#5  0x00007ffff73e5321 in __switch_to (prev=0x7fffe8001450, next=0x189) at arch/lkl/kernel/threads.c:112
+#6  0x00007ffff789cb75 in context_switch (rf=<optimized out>, next=<optimized out>, prev=0xfffffffffffffe00, rq=<optimized out>) at kernel/sched/core.c:3254
+#7  __schedule (preempt=80) at kernel/sched/core.c:3880
+#8  0x00007ffff789cdaf in schedule () at kernel/sched/core.c:3947
+#9  0x00007ffff789f0c6 in schedule_timeout (timeout=140737085707344) at kernel/time/timer.c:1807
+#10 0x0000000000000001 in ?? ()
+#11 0x00007fffe57f9d50 in ?? ()
+#12 0x0000000000000001 in ?? ()
+#13 0x0000000000000000 in ?? ()
+(gdb) t 14
+[Switching to thread 14 (Thread 0x7fffe4ff9700 (LWP 21439))]
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe80015a0) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+205	in ../sysdeps/unix/sysv/linux/futex-internal.h
+(gdb) backtrace 
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe80015a0) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+#1  do_futex_wait (sem=sem@entry=0x7fffe80015a0, abstime=0x0) at sem_waitcommon.c:111
+#2  0x00007ffff617a8b8 in __new_sem_wait_slow (sem=sem@entry=0x7fffe80015a0, abstime=0x0) at sem_waitcommon.c:181
+#3  0x00007ffff617a929 in __new_sem_wait (sem=sem@entry=0x7fffe80015a0) at sem_wait.c:42
+#4  0x00007ffff73def64 in sem_down (sem=0x7fffe80015a0) at lib/posix-host.c:128
+#5  0x00007ffff73e5321 in __switch_to (prev=0x7fffe80015a0, next=0x189) at arch/lkl/kernel/threads.c:112
+#6  0x00007ffff789cb75 in context_switch (rf=<optimized out>, next=<optimized out>, prev=0xfffffffffffffe00, rq=<optimized out>) at kernel/sched/core.c:3254
+#7  __schedule (preempt=160) at kernel/sched/core.c:3880
+#8  0x00007ffff789cdaf in schedule () at kernel/sched/core.c:3947
+#9  0x00007ffff73fe34e in worker_thread (__worker=0x0) at kernel/workqueue.c:2436
+#10 0x00007ffff7402f97 in kthread (_create=0x7fffece1c000) at kernel/kthread.c:255
+#11 0x00007fffecfd39f0 in ?? ()
+#12 0x00007fffe4ff8ea0 in ?? ()
+#13 0x00007fffece04720 in ?? ()
+#14 0x00007fffef424000 in ?? ()
+#15 0x00007ffff7402e40 in ?? () at kernel/kthread.c:332 from ./linux/tools/lkl/lib/liblkl.so
+#16 0x00007fffecff52c0 in ?? ()
+#17 0x00007ffff5166c30 in ?? ()
+#18 0x00007fffe4ff8ef0 in ?? ()
+#19 0x00007ffff73e51ab in thread_bootstrap (_tba=0x7ffff7d8d468 <lkl_ops>) at arch/lkl/kernel/threads.c:160
+#20 0x0000000000000000 in ?? ()
+(gdb) t 15
+[Switching to thread 15 (Thread 0x7fffdffff700 (LWP 21440))]
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe80016f0) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+205	in ../sysdeps/unix/sysv/linux/futex-internal.h
+(gdb) backtrace 
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe80016f0) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+#1  do_futex_wait (sem=sem@entry=0x7fffe80016f0, abstime=0x0) at sem_waitcommon.c:111
+#2  0x00007ffff617a8b8 in __new_sem_wait_slow (sem=sem@entry=0x7fffe80016f0, abstime=0x0) at sem_waitcommon.c:181
+#3  0x00007ffff617a929 in __new_sem_wait (sem=sem@entry=0x7fffe80016f0) at sem_wait.c:42
+#4  0x00007ffff73def64 in sem_down (sem=0x7fffe80016f0) at lib/posix-host.c:128
+#5  0x00007ffff73e5321 in __switch_to (prev=0x7fffe80016f0, next=0x189) at arch/lkl/kernel/threads.c:112
+#6  0x00007ffff789cb75 in context_switch (rf=<optimized out>, next=<optimized out>, prev=0xfffffffffffffe00, rq=<optimized out>) at kernel/sched/core.c:3254
+#7  __schedule (preempt=240) at kernel/sched/core.c:3880
+#8  0x00007ffff789cdaf in schedule () at kernel/sched/core.c:3947
+#9  0x00007ffff73fef76 in rescuer_thread (__rescuer=0x7fffef424800) at kernel/workqueue.c:2572
+#10 0x0000000300000000 in ?? ()
+#11 0x00007fffef4ad070 in ?? ()
+#12 0x00007fff00000000 in ?? ()
+#13 0x00007fffef4ad000 in ?? ()
+#14 0x00007ffff73e5926 in arch_local_irq_restore (flags=140737085708016) at arch/lkl/kernel/irq.c:174
+#15 0x00007ffff7c76360 in abs_prev () from ./linux/tools/lkl/lib/liblkl.so
+#16 0x0000000000000001 in ?? ()
+#17 0x00007fffdfffee70 in ?? ()
+#18 0x00007fffecfd3b40 in ?? ()
+#19 0x00007ffff7c76360 in abs_prev () from ./linux/tools/lkl/lib/liblkl.so
+#20 0x00007ffff5967b30 in ?? ()
+#21 0x00007fffef406180 in ?? ()
+#22 0x00007fffecff5200 in ?? ()
+#23 0x00007fffdfffeec0 in ?? ()
+#24 0x00007ffff7402f97 in kthread (_create=0x7fffef4b0000) at kernel/kthread.c:255
+#25 0x00007fffecfd3b70 in ?? ()
+#26 0x00007fffdfffeea0 in ?? ()
+#27 0x00007fffece043c0 in ?? ()
+#28 0x00007fffef424800 in ?? ()
+#29 0x00007ffff7402e40 in ?? () at kernel/kthread.c:332 from ./linux/tools/lkl/lib/liblkl.so
+#30 0x00007fffecff5200 in ?? ()
+#31 0x00007ffff5166c30 in ?? ()
+#32 0x00007fffdfffeef0 in ?? ()
+#33 0x00007ffff73e51ab in thread_bootstrap (_tba=0x7ffff7d8d468 <lkl_ops>) at arch/lkl/kernel/threads.c:160
+#34 0x0000000000000000 in ?? ()
+(gdb) t 16
+[Switching to thread 16 (Thread 0x7fffdf7fe700 (LWP 21441))]
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8001840) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+205	in ../sysdeps/unix/sysv/linux/futex-internal.h
+(gdb) backtrace 
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8001840) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+#1  do_futex_wait (sem=sem@entry=0x7fffe8001840, abstime=0x0) at sem_waitcommon.c:111
+#2  0x00007ffff617a8b8 in __new_sem_wait_slow (sem=sem@entry=0x7fffe8001840, abstime=0x0) at sem_waitcommon.c:181
+#3  0x00007ffff617a929 in __new_sem_wait (sem=sem@entry=0x7fffe8001840) at sem_wait.c:42
+#4  0x00007ffff73def64 in sem_down (sem=0x7fffe8001840) at lib/posix-host.c:128
+#5  0x00007ffff73e5321 in __switch_to (prev=0x7fffe8001840, next=0x189) at arch/lkl/kernel/threads.c:112
+#6  0x00007ffff789cb75 in context_switch (rf=<optimized out>, next=<optimized out>, prev=0xfffffffffffffe00, rq=<optimized out>) at kernel/sched/core.c:3254
+#7  __schedule (preempt=64) at kernel/sched/core.c:3880
+#8  0x00007ffff789cdaf in schedule () at kernel/sched/core.c:3947
+#9  0x00007ffff73fef76 in rescuer_thread (__rescuer=0x7fffef425000) at kernel/workqueue.c:2572
+#10 0x0000000300000000 in ?? ()
+#11 0x00007fffef4ad170 in ?? ()
+#12 0x00007fff00000000 in ?? ()
+#13 0x00007fffef4ad100 in ?? ()
+#14 0x00007ffff73e5926 in arch_local_irq_restore (flags=140737085708352) at arch/lkl/kernel/irq.c:174
+#15 0x00007ffff7c76360 in abs_prev () from ./linux/tools/lkl/lib/liblkl.so
+#16 0x0000000000000001 in ?? ()
+#17 0x00007fffdf7fde70 in ?? ()
+#18 0x00007fffecfd3ba0 in ?? ()
+#19 0x00007ffff7c76360 in abs_prev () from ./linux/tools/lkl/lib/liblkl.so
+#20 0x00007ffff5967b40 in ?? ()
+#21 0x00007fffef406240 in ?? ()
+#22 0x00007fffecff5200 in ?? ()
+#23 0x00007fffdf7fdec0 in ?? ()
+#24 0x00007ffff7402f97 in kthread (_create=0x7fffef4b0540) at kernel/kthread.c:255
+#25 0x00007fffecfd3bd0 in ?? ()
+#26 0x00007fffdf7fdea0 in ?? ()
+#27 0x00007fffece044c0 in ?? ()
+#28 0x00007fffef425000 in ?? ()
+#29 0x00007ffff7402e40 in ?? () at kernel/kthread.c:332 from ./linux/tools/lkl/lib/liblkl.so
+#30 0x00007fffecff5200 in ?? ()
+#31 0x00007ffff5166c30 in ?? ()
+#32 0x00007fffdf7fdef0 in ?? ()
+#33 0x00007ffff73e51ab in thread_bootstrap (_tba=0x7ffff7d8d468 <lkl_ops>) at arch/lkl/kernel/threads.c:160
+#34 0x0000000000000000 in ?? ()
+(gdb) t 17
+Unknown thread 17.
+(gdb) backtrace 
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8001840) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+#1  do_futex_wait (sem=sem@entry=0x7fffe8001840, abstime=0x0) at sem_waitcommon.c:111
+#2  0x00007ffff617a8b8 in __new_sem_wait_slow (sem=sem@entry=0x7fffe8001840, abstime=0x0) at sem_waitcommon.c:181
+#3  0x00007ffff617a929 in __new_sem_wait (sem=sem@entry=0x7fffe8001840) at sem_wait.c:42
+#4  0x00007ffff73def64 in sem_down (sem=0x7fffe8001840) at lib/posix-host.c:128
+#5  0x00007ffff73e5321 in __switch_to (prev=0x7fffe8001840, next=0x189) at arch/lkl/kernel/threads.c:112
+#6  0x00007ffff789cb75 in context_switch (rf=<optimized out>, next=<optimized out>, prev=0xfffffffffffffe00, rq=<optimized out>) at kernel/sched/core.c:3254
+#7  __schedule (preempt=64) at kernel/sched/core.c:3880
+#8  0x00007ffff789cdaf in schedule () at kernel/sched/core.c:3947
+#9  0x00007ffff73fef76 in rescuer_thread (__rescuer=0x7fffef425000) at kernel/workqueue.c:2572
+#10 0x0000000300000000 in ?? ()
+#11 0x00007fffef4ad170 in ?? ()
+#12 0x00007fff00000000 in ?? ()
+#13 0x00007fffef4ad100 in ?? ()
+#14 0x00007ffff73e5926 in arch_local_irq_restore (flags=140737085708352) at arch/lkl/kernel/irq.c:174
+#15 0x00007ffff7c76360 in abs_prev () from ./linux/tools/lkl/lib/liblkl.so
+#16 0x0000000000000001 in ?? ()
+#17 0x00007fffdf7fde70 in ?? ()
+#18 0x00007fffecfd3ba0 in ?? ()
+#19 0x00007ffff7c76360 in abs_prev () from ./linux/tools/lkl/lib/liblkl.so
+#20 0x00007ffff5967b40 in ?? ()
+#21 0x00007fffef406240 in ?? ()
+#22 0x00007fffecff5200 in ?? ()
+#23 0x00007fffdf7fdec0 in ?? ()
+#24 0x00007ffff7402f97 in kthread (_create=0x7fffef4b0540) at kernel/kthread.c:255
+#25 0x00007fffecfd3bd0 in ?? ()
+#26 0x00007fffdf7fdea0 in ?? ()
+#27 0x00007fffece044c0 in ?? ()
+#28 0x00007fffef425000 in ?? ()
+#29 0x00007ffff7402e40 in ?? () at kernel/kthread.c:332 from ./linux/tools/lkl/lib/liblkl.so
+#30 0x00007fffecff5200 in ?? ()
+#31 0x00007ffff5166c30 in ?? ()
+#32 0x00007fffdf7fdef0 in ?? ()
+#33 0x00007ffff73e51ab in thread_bootstrap (_tba=0x7ffff7d8d468 <lkl_ops>) at arch/lkl/kernel/threads.c:160
+#34 0x0000000000000000 in ?? ()
+(gdb) t 18
+[Switching to thread 18 (Thread 0x7fffdeffd700 (LWP 21443))]
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8001990) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+205	in ../sysdeps/unix/sysv/linux/futex-internal.h
+(gdb) backtrace 
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8001990) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+#1  do_futex_wait (sem=sem@entry=0x7fffe8001990, abstime=0x0) at sem_waitcommon.c:111
+#2  0x00007ffff617a8b8 in __new_sem_wait_slow (sem=sem@entry=0x7fffe8001990, abstime=0x0) at sem_waitcommon.c:181
+#3  0x00007ffff617a929 in __new_sem_wait (sem=sem@entry=0x7fffe8001990) at sem_wait.c:42
+#4  0x00007ffff73def64 in sem_down (sem=0x7fffe8001990) at lib/posix-host.c:128
+#5  0x00007ffff73e5321 in __switch_to (prev=0x7fffe8001990, next=0x189) at arch/lkl/kernel/threads.c:112
+#6  0x00007ffff789cb75 in context_switch (rf=<optimized out>, next=<optimized out>, prev=0xfffffffffffffe00, rq=<optimized out>) at kernel/sched/core.c:3254
+#7  __schedule (preempt=144) at kernel/sched/core.c:3880
+#8  0x00007ffff789cdaf in schedule () at kernel/sched/core.c:3947
+#9  0x00007ffff73fef76 in rescuer_thread (__rescuer=0x7fffef588000) at kernel/workqueue.c:2572
+#10 0x0000000300000000 in ?? ()
+#11 0x00007fffef57e070 in ?? ()
+#12 0x00007fff00000000 in ?? ()
+#13 0x00007fffef57e000 in ?? ()
+#14 0x00007ffff73e5926 in arch_local_irq_restore (flags=140737085708688) at arch/lkl/kernel/irq.c:174
+#15 0x00007ffff7c76360 in abs_prev () from ./linux/tools/lkl/lib/liblkl.so
+#16 0x0000000000000001 in ?? ()
+#17 0x00007fffdeffce70 in ?? ()
+#18 0x00007fffecfd3ea0 in ?? ()
+#19 0x00007ffff7c76360 in abs_prev () from ./linux/tools/lkl/lib/liblkl.so
+#20 0x00007ffff5967b40 in ?? ()
+#21 0x00007fffef406840 in ?? ()
+#22 0x00007fffecff5400 in ?? ()
+#23 0x00007fffdeffcec0 in ?? ()
+#24 0x00007ffff7402f97 in kthread (_create=0x7fffef4b0a80) at kernel/kthread.c:255
+#25 0x00007fffecfd3ed0 in ?? ()
+#26 0x00007fffdeffcea0 in ?? ()
+#27 0x00007fffece04660 in ?? ()
+#28 0x00007fffef588000 in ?? ()
+#29 0x00007ffff7402e40 in ?? () at kernel/kthread.c:332 from ./linux/tools/lkl/lib/liblkl.so
+#30 0x00007fffecff5400 in ?? ()
+#31 0x00007ffff5166c30 in ?? ()
+#32 0x00007fffdeffcef0 in ?? ()
+#33 0x00007ffff73e51ab in thread_bootstrap (_tba=0x7ffff7d8d468 <lkl_ops>) at arch/lkl/kernel/threads.c:160
+#34 0x0000000000000000 in ?? ()
+(gdb) t 19
+[Switching to thread 19 (Thread 0x7fffde7fc700 (LWP 21444))]
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe80019c0) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+205	in ../sysdeps/unix/sysv/linux/futex-internal.h
+(gdb) backtrace 
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe80019c0) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+#1  do_futex_wait (sem=sem@entry=0x7fffe80019c0, abstime=0x0) at sem_waitcommon.c:111
+#2  0x00007ffff617a8b8 in __new_sem_wait_slow (sem=sem@entry=0x7fffe80019c0, abstime=0x0) at sem_waitcommon.c:181
+#3  0x00007ffff617a929 in __new_sem_wait (sem=sem@entry=0x7fffe80019c0) at sem_wait.c:42
+#4  0x00007ffff73def64 in sem_down (sem=0x7fffe80019c0) at lib/posix-host.c:128
+#5  0x00007ffff73e5321 in __switch_to (prev=0x7fffe80019c0, next=0x189) at arch/lkl/kernel/threads.c:112
+#6  0x00007ffff789cb75 in context_switch (rf=<optimized out>, next=<optimized out>, prev=0xfffffffffffffe00, rq=<optimized out>) at kernel/sched/core.c:3254
+#7  __schedule (preempt=192) at kernel/sched/core.c:3880
+#8  0x00007ffff789cdaf in schedule () at kernel/sched/core.c:3947
+#9  0x00007ffff73fef76 in rescuer_thread (__rescuer=0x7fffef588800) at kernel/workqueue.c:2572
+#10 0x0000000300000000 in ?? ()
+#11 0x00007fffef57e470 in ?? ()
+#12 0x00007fff00000000 in ?? ()
+#13 0x00007fffef57e400 in ?? ()
+#14 0x00007ffff73e5926 in arch_local_irq_restore (flags=140737085708736) at arch/lkl/kernel/irq.c:174
+#15 0x00007ffff7c76360 in abs_prev () from ./linux/tools/lkl/lib/liblkl.so
+#16 0x0000000000000001 in ?? ()
+#17 0x00007fffde7fbe70 in ?? ()
+#18 0x00007fffecfd3f00 in ?? ()
+#19 0x00007ffff7c76360 in abs_prev () from ./linux/tools/lkl/lib/liblkl.so
+#20 0x00007ffff5967b40 in ?? ()
+#21 0x00007fffef406900 in ?? ()
+#22 0x00007fffecff5400 in ?? ()
+#23 0x00007fffde7fbec0 in ?? ()
+#24 0x00007ffff7402f97 in kthread (_create=0x7fffef4b0fc0) at kernel/kthread.c:255
+#25 0x00007fffecfd3f30 in ?? ()
+#26 0x00007fffde7fbea0 in ?? ()
+#27 0x00007fffece04680 in ?? ()
+#28 0x00007fffef588800 in ?? ()
+#29 0x00007ffff7402e40 in ?? () at kernel/kthread.c:332 from ./linux/tools/lkl/lib/liblkl.so
+#30 0x00007fffecff5400 in ?? ()
+#31 0x00007ffff5166c30 in ?? ()
+#32 0x00007fffde7fbef0 in ?? ()
+#33 0x00007ffff73e51ab in thread_bootstrap (_tba=0x7ffff7d8d468 <lkl_ops>) at arch/lkl/kernel/threads.c:160
+#34 0x0000000000000000 in ?? ()
+(gdb) t 20
+[Switching to thread 20 (Thread 0x7fffddffb700 (LWP 21445))]
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8001b10) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+205	in ../sysdeps/unix/sysv/linux/futex-internal.h
+(gdb) backtrace 
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8001b10) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+#1  do_futex_wait (sem=sem@entry=0x7fffe8001b10, abstime=0x0) at sem_waitcommon.c:111
+#2  0x00007ffff617a8b8 in __new_sem_wait_slow (sem=sem@entry=0x7fffe8001b10, abstime=0x0) at sem_waitcommon.c:181
+#3  0x00007ffff617a929 in __new_sem_wait (sem=sem@entry=0x7fffe8001b10) at sem_wait.c:42
+#4  0x00007ffff73def64 in sem_down (sem=0x7fffe8001b10) at lib/posix-host.c:128
+#5  0x00007ffff73e5321 in __switch_to (prev=0x7fffe8001b10, next=0x189) at arch/lkl/kernel/threads.c:112
+#6  0x00007ffff789cb75 in context_switch (rf=<optimized out>, next=<optimized out>, prev=0xfffffffffffffe00, rq=<optimized out>) at kernel/sched/core.c:3254
+#7  __schedule (preempt=16) at kernel/sched/core.c:3880
+#8  0x00007ffff789cdaf in schedule () at kernel/sched/core.c:3947
+#9  0x00007ffff73fef76 in rescuer_thread (__rescuer=0x7fffef589000) at kernel/workqueue.c:2572
+#10 0x0000000300000000 in ?? ()
+#11 0x00007fffef57e870 in ?? ()
+#12 0x00007fff00000000 in ?? ()
+#13 0x00007fffef57e800 in ?? ()
+#14 0x00007ffff73e5926 in arch_local_irq_restore (flags=140737085709072) at arch/lkl/kernel/irq.c:174
+#15 0x00007ffff7c76360 in abs_prev () from ./linux/tools/lkl/lib/liblkl.so
+#16 0x0000000000000001 in ?? ()
+#17 0x00007fffddffae70 in ?? ()
+#18 0x00007fffecfd3f60 in ?? ()
+#19 0x00007ffff7c76360 in abs_prev () from ./linux/tools/lkl/lib/liblkl.so
+#20 0x00007ffff5967b40 in ?? ()
+#21 0x00007fffef4069c0 in ?? ()
+#22 0x00007fffecff5400 in ?? ()
+#23 0x00007fffddffaec0 in ?? ()
+#24 0x00007ffff7402f97 in kthread (_create=0x7fffef4b1500) at kernel/kthread.c:255
+#25 0x00007fffecfd3f90 in ?? ()
+#26 0x00007fffddffaea0 in ?? ()
+#27 0x00007fffece046c0 in ?? ()
+#28 0x00007fffef589000 in ?? ()
+#29 0x00007ffff7402e40 in ?? () at kernel/kthread.c:332 from ./linux/tools/lkl/lib/liblkl.so
+#30 0x00007fffecff5400 in ?? ()
+#31 0x00007ffff5166c30 in ?? ()
+#32 0x00007fffddffaef0 in ?? ()
+#33 0x00007ffff73e51ab in thread_bootstrap (_tba=0x7ffff7d8d468 <lkl_ops>) at arch/lkl/kernel/threads.c:160
+#34 0x0000000000000000 in ?? ()
+(gdb) t 21
+[Switching to thread 21 (Thread 0x7fffdd7fa700 (LWP 21446))]
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8001c60) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+205	in ../sysdeps/unix/sysv/linux/futex-internal.h
+(gdb) backtrace 
+#0  0x00007ffff617a7c6 in futex_abstimed_wait_cancelable (private=0, abstime=0x0, expected=0, futex_word=0x7fffe8001c60) at ../sysdeps/unix/sysv/linux/futex-internal.h:205
+#1  do_futex_wait (sem=sem@entry=0x7fffe8001c60, abstime=0x0) at sem_waitcommon.c:111
+#2  0x00007ffff617a8b8 in __new_sem_wait_slow (sem=sem@entry=0x7fffe8001c60, abstime=0x0) at sem_waitcommon.c:181
+#3  0x00007ffff617a929 in __new_sem_wait (sem=sem@entry=0x7fffe8001c60) at sem_wait.c:42
+#4  0x00007ffff73def64 in sem_down (sem=0x7fffe8001c60) at lib/posix-host.c:128
+#5  0x00007ffff73e5321 in __switch_to (prev=0x7fffe8001c60, next=0x189) at arch/lkl/kernel/threads.c:112
+#6  0x00007ffff789cb75 in context_switch (rf=<optimized out>, next=<optimized out>, prev=0xfffffffffffffe00, rq=<optimized out>) at kernel/sched/core.c:3254
+#7  __schedule (preempt=96) at kernel/sched/core.c:3880
+#8  0x00007ffff789cdaf in schedule () at kernel/sched/core.c:3947
+#9  0x00007ffff73fef76 in rescuer_thread (__rescuer=0x7fffef5a0800) at kernel/workqueue.c:2572
+#10 0x0000000300000000 in ?? ()
+#11 0x00007fffef597c70 in ?? ()
+#12 0x00007fff00000000 in ?? ()
+#13 0x00007fffef597c00 in ?? ()
+#14 0x00007ffff73e5926 in arch_local_irq_restore (flags=140737085709408) at arch/lkl/kernel/irq.c:174
+#15 0x00007ffff7c76360 in abs_prev () from ./linux/tools/lkl/lib/liblkl.so
+#16 0x0000000000000001 in ?? ()
+#17 0x00007fffdd7f9e70 in ?? ()
+#18 0x00007fffef58c180 in ?? ()
+#19 0x00007ffff7c76360 in abs_prev () from ./linux/tools/lkl/lib/liblkl.so
+#20 0x00007ffff5967b10 in ?? ()
+#21 0x00007fffef59d000 in ?? ()
+#22 0x00007fffecff58c0 in ?? ()
+#23 0x00007fffdd7f9ec0 in ?? ()
+#24 0x00007ffff7402f97 in kthread (_create=0x7fffef4b1a40) at kernel/kthread.c:255
+#25 0x00007fffef58c1b0 in ?? ()
+#26 0x00007fffdd7f9ea0 in ?? ()
+#27 0x00007fffece04800 in ?? ()
+#28 0x00007fffef5a0800 in ?? ()
+#29 0x00007ffff7402e40 in ?? () at kernel/kthread.c:332 from ./linux/tools/lkl/lib/liblkl.so
+#30 0x00007fffecff58c0 in ?? ()
+#31 0x00007ffff5166c30 in ?? ()
+#32 0x00007fffdd7f9ef0 in ?? ()
+#33 0x00007ffff73e51ab in thread_bootstrap (_tba=0x7ffff7d8d468 <lkl_ops>) at arch/lkl/kernel/threads.c:160
+#34 0x0000000000000000 in ?? ()
+(gdb) t 22
+[Switching to thread 22 (Thread 0x7fffdcff9700 (LWP 21447))]
+#0  __GI_raise (sig=sig@entry=6) at ../sysdeps/unix/sysv/linux/raise.c:51
+51	../sysdeps/unix/sysv/linux/raise.c: No such file or directory.
+(gdb) backtrace 
+#0  __GI_raise (sig=sig@entry=6) at ../sysdeps/unix/sysv/linux/raise.c:51
+#1  0x00007ffff65d1921 in __GI_abort () at abort.c:79
+#2  0x00007ffff65c148a in __assert_fail_base (fmt=0x7ffff6748750 "%s%s%s:%u: %s%sAssertion `%s' failed.\n%n", assertion=assertion@entry=0x7ffff78b5720 "0", file=file@entry=0x7ffff78b570f "lib/posix-host.c", line=line@entry=303, function=function@entry=0x7ffff78b5111 <__PRETTY_FUNCTION__.10941> "panic") at assert.c:92
+#3  0x00007ffff65c1502 in __GI___assert_fail (assertion=assertion@entry=0x7ffff78b5720 "0", file=file@entry=0x7ffff78b570f "lib/posix-host.c", line=line@entry=303, function=function@entry=0x7ffff78b5111 <__PRETTY_FUNCTION__.10941> "panic") at assert.c:101
+#4  0x00007ffff73deac3 in panic () at lib/posix-host.c:303
+#5  0x00007ffff73df263 in lkl_bug (fmt=<optimized out>) at lib/utils.c:207
+#6  0x00007ffff73e6564 in lkl_cpu_put () at arch/lkl/kernel/cpu.c:119
+#7  0x00007ffff73e5d61 in idle_host_task_loop (unused=0x2) at arch/lkl/kernel/syscalls.c:151
+#8  0x00007fffef5b1000 in ?? ()
+#9  0x00007fffdcff8ef0 in ?? ()
+#10 0x00007ffff73e51ab in thread_bootstrap (_tba=0x7ffff7d96700 <cpu>) at arch/lkl/kernel/threads.c:160
+#11 0x0000000000000000 in ?? ()
