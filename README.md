@@ -1,7 +1,7 @@
 
 # might-be-lkl-bug
 
-# Build & Reproduce bug
+### Build & Reproduce bug
 
 ```bash
 $ make build
